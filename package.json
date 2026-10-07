@@ -1,0 +1,13 @@
+{
+  "name": "clearskin-redesign",
+  "version": "1.0.0",
+  "description": "ClearSkin Dermatology Clinic Redesign",
+  "main": "index.php",
+  "scripts": {
+    "dev": "npx -y serve . -p 4500",
+    "start": "npx -y serve . -p 4500"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
