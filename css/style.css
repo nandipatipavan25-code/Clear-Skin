@@ -457,12 +457,12 @@ section.is-visible, section.active,
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.5rem 0.6rem;
+  padding: 0.5rem 0.65rem;
   color: var(--dark);
-  font-family: var(--font-heading);
+  font-family: var(--font-body) !important;
   font-weight: 600;
   font-size: 0.82rem;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
   border-radius: var(--radius-sm);
   transition: var(--transition-fast);
   white-space: nowrap;
