@@ -12,10 +12,6 @@ include 'header.php';
         <div class="hero-grid">
             <!-- Hero Text Content -->
             <div class="hero-content animate-fade-up">
-                <div class="section-tag">
-                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.83L20.13 19H3.87L12 5.83zM11 16h2v2h-2zm0-6h2v4h-2z"/></svg>
-                    Certified Dermatology & Aesthetic Clinic
-                </div>
                 
                 <h1 class="hero-title">
                     Radiant Skin Is <span>A Treatment Away</span>

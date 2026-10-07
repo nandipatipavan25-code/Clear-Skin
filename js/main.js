@@ -23,44 +23,45 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Auto-tag all major sections for smooth section reveal motion
-  const sections = document.querySelectorAll('section, .hero-section, .doctor-section, .skin-section, .hair-section, .testimonials-section, .locations-section');
-  sections.forEach(sec => {
-    if (!sec.classList.contains('reveal-section')) {
-      sec.classList.add('reveal-section');
-    }
+  // Automatic Word-by-Word Text Reveal for Major Headings
+  const headingsToReveal = document.querySelectorAll('.hero-title, .section-title, .page-banner-title, .doctor-name');
+  headingsToReveal.forEach(heading => {
+    if (heading.querySelector('.word-reveal')) return; // Avoid double wrapping
+
+    const nodes = Array.from(heading.childNodes);
+    heading.innerHTML = '';
+    let wordCount = 0;
+
+    nodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const parts = node.textContent.split(/(\s+)/);
+        parts.forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            heading.appendChild(document.createTextNode(part));
+          } else {
+            const span = document.createElement('span');
+            span.className = 'word-reveal';
+            span.style.transitionDelay = `${wordCount * 0.06}s`;
+            span.textContent = part;
+            heading.appendChild(span);
+            wordCount++;
+          }
+        });
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const span = document.createElement('span');
+        span.className = 'word-reveal';
+        span.style.transitionDelay = `${wordCount * 0.06}s`;
+        span.innerHTML = node.innerHTML;
+        if (node.className) span.className += ' ' + node.className;
+        heading.appendChild(span);
+        wordCount++;
+      }
+    });
   });
 
-  // Word-by-word reveal splitting for major headings
-  const textRevealHeadings = document.querySelectorAll('.section-title, .hero-title, .page-banner-title');
-  textRevealHeadings.forEach(heading => {
-    if (!heading.classList.contains('word-split-done')) {
-      const childNodes = Array.from(heading.childNodes);
-      heading.innerHTML = '';
-      childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-          const words = node.textContent.split(/(\s+)/);
-          words.forEach(word => {
-            if (word.trim().length > 0) {
-              const wordSpan = document.createElement('span');
-              wordSpan.className = 'reveal-word';
-              wordSpan.textContent = word;
-              heading.appendChild(wordSpan);
-            } else if (word.length > 0) {
-              heading.appendChild(document.createTextNode(word));
-            }
-          });
-        } else {
-          node.classList.add('reveal-word');
-          heading.appendChild(node);
-        }
-      });
-      heading.classList.add('word-split-done');
-    }
-  });
-
-  // Smooth Viewport Reveal Observer (bidirectional scroll reveal)
-  const animatableSelectors = '.reveal, .reveal-section, .animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-zoom-in, .animate-scale-in, .animate-slide-up, .section-header';
+  // Scroll Entrance Animations (Multi-Section & Element IntersectionObserver)
+  const animatableSelectors = 'section, .reveal, .section-header, .animate-fade-up, .animate-fade-left, .animate-fade-right, .animate-zoom-in, .animate-scale-in, .treatment-card, .service-card, .doctor-card-frame, .doctor-info-content, .testimonial-card, .contact-card';
   const revealElements = document.querySelectorAll(animatableSelectors);
   
   const revealObserver = new IntersectionObserver((entries) => {
@@ -68,9 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
         entry.target.classList.add('is-visible');
-      } else {
-        // Smooth transition when scrolling both down and up
-        entry.target.classList.remove('is-visible');
       }
     });
   }, {

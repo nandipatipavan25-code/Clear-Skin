@@ -1,16 +1,19 @@
 /* ==========================================================================
    ClearSkin Dermatology & Aesthetic Clinic - Redesign
    Primary Colors: #9B699C (Amethyst/Orchid) & #4A8C60 (Emerald/Sage)
+   Typography:
+     - Section Titles & Headings: Cormorant Garamond (600 weight)
+     - Section Tags & Badges: Lato (700 weight, uppercase, letter-spaced)
+     - Body Text: Lato (400 weight)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
 :root {
-  /* Typography Hierarchy */
-  --font-script: 'Caveat', 'Peristiwa Calligraphic Script', cursive, serif;
+  /* Typography System */
   --font-heading: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-handwritten: var(--font-script);
+  --font-script: 'Cormorant Garamond', Georgia, serif;
 
   /* Brand Colors */
   --primary: #9B699C;
@@ -58,6 +61,7 @@
   --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Base Styles */
@@ -88,6 +92,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--dark-heading);
   font-weight: 600;
   line-height: 1.22;
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -107,17 +112,24 @@ ul {
 }
 
 button, input, select, textarea {
-  font-family: inherit;
+  font-family: var(--font-body);
+  font-weight: 400;
   font-size: inherit;
   outline: none;
   border: none;
 }
 
-/* Strict Global SVG Icon Sizing to Prevent Huge Icon Distortions */
+/* Strict Global SVG Icon Sizing Safety (Prevents Giant Unstyled Icon Distortions) */
 svg {
   display: inline-block;
   vertical-align: middle;
   flex-shrink: 0;
+  max-width: 100%;
+}
+
+svg:not([width]) {
+  width: 24px;
+  height: 24px;
 }
 
 /* Container */
@@ -128,39 +140,18 @@ svg {
   padding: 0 1.25rem;
 }
 
-/* Section Title Typography: Clean Standalone Calligraphic Script (No boxes, pills, or containers) */
-.section-tag {
-  display: inline-block;
-  padding: 0 !important;
-  background: none !important;
-  background-color: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  font-family: var(--font-script);
-  font-size: 2.1rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 0.4rem;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  transform: rotate(-1.5deg);
-  transition: transform 0.3s ease;
-}
-
-.section-tag:hover {
-  transform: rotate(0deg) scale(1.05);
-}
-
-.section-tag.secondary {
-  color: var(--secondary);
-  background: none !important;
-  border: none !important;
+/* Remove Section Tag Sub-Titles Site-Wide */
+.section-tag,
+.hero-category-badge,
+.section-tag.secondary,
+.script-title,
+.calligraphic-title {
+  display: none !important;
 }
 
 .section-header {
   text-align: center;
-  max-width: 740px;
+  max-width: 760px;
   margin: 0 auto 3.5rem auto;
   position: relative;
 }
@@ -168,47 +159,102 @@ svg {
 .section-header::after {
   content: '';
   display: block;
-  width: 50px;
-  height: 3px;
+  width: 45px;
+  height: 2px;
   background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
-  border-radius: 3px;
+  border-radius: 2px;
   margin: 1rem auto 0 auto;
   transition: width 0.8s var(--ease-smooth);
 }
 
 .section-header.active::after,
 .section-header.is-visible::after {
-  width: 90px;
+  width: 85px;
 }
 
 .section-title {
-  font-family: var(--font-heading);
-  font-size: 2.65rem;
-  font-weight: 600;
+  font-family: var(--font-heading) !important;
+  font-size: 2.85rem;
+  font-weight: 600 !important;
   color: var(--dark-heading);
-  letter-spacing: -0.01em;
-  line-height: 1.25;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
 }
 
 .section-title span,
 .page-banner-title span,
 .script-accent {
-  font-family: var(--font-handwritten);
-  font-weight: 700;
-  font-size: 1.3em;
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+  font-size: 1em !important;
   background: var(--grad-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block;
-  padding: 0 0.15em;
-  transform: rotate(-1.5deg);
-  vertical-align: middle;
+  display: inline;
+  padding: 0;
+  vertical-align: baseline;
 }
 
 .section-subtitle {
+  font-family: var(--font-body) !important;
+  font-weight: 400 !important;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   margin-top: 0.75rem;
+}
+
+/* Smooth Scrolling Text Reveal & Section Reveal System */
+.word-reveal {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px) translateZ(0);
+  transition: opacity 0.75s var(--ease-smooth), transform 0.75s var(--ease-smooth);
+  will-change: opacity, transform;
+}
+
+.is-visible .word-reveal,
+.active .word-reveal,
+.reveal.is-visible .word-reveal,
+.section-header.is-visible .word-reveal {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* Progressive Section Entrance Reveals */
+section,
+.reveal,
+.animate-fade-up,
+.animate-fade-left,
+.animate-fade-right,
+.hero-content,
+.hero-media-wrapper,
+.doctor-card-frame,
+.doctor-info-content,
+.treatment-card,
+.service-card,
+.testimonial-card,
+.contact-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.85s var(--ease-smooth), transform 0.85s var(--ease-smooth);
+  will-change: opacity, transform;
+}
+
+section.is-visible, section.active,
+.reveal.is-visible, .reveal.active,
+.animate-fade-up.is-visible, .animate-fade-up.active,
+.animate-fade-left.is-visible, .animate-fade-left.active,
+.animate-fade-right.is-visible, .animate-fade-right.active,
+.hero-content.is-visible, .hero-content.active,
+.hero-media-wrapper.is-visible, .hero-media-wrapper.active,
+.doctor-card-frame.is-visible, .doctor-card-frame.active,
+.doctor-info-content.is-visible, .doctor-info-content.active,
+.treatment-card.is-visible, .treatment-card.active,
+.service-card.is-visible, .service-card.active,
+.testimonial-card.is-visible, .testimonial-card.active,
+.contact-card.is-visible, .contact-card.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Buttons */
@@ -530,24 +576,31 @@ svg {
 }
 
 .page-banner-title {
-  font-size: 2.5rem;
-  font-weight: 800;
+  font-family: var(--font-heading) !important;
+  font-size: 2.75rem;
+  font-weight: 600 !important;
   color: var(--dark-heading);
   text-align: center !important;
   margin: 0 auto 0.75rem auto;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
   width: 100%;
 }
 
 .page-banner-title span {
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
   background: var(--grad-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  display: inline;
+  transform: none !important;
 }
 
 .page-banner p {
+  font-family: var(--font-body) !important;
   color: var(--muted);
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   max-width: 680px;
   margin: 0 auto !important;
   text-align: center !important;
@@ -570,33 +623,35 @@ svg {
 }
 
 .hero-title {
-  font-family: var(--font-heading);
-  font-size: 3.4rem;
-  font-weight: 600;
-  line-height: 1.15;
+  font-family: var(--font-heading) !important;
+  font-size: 3.25rem;
+  font-weight: 600 !important;
+  line-height: 1.18;
   color: var(--dark-heading);
   letter-spacing: -0.02em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
 .hero-title span {
-  font-family: var(--font-handwritten);
-  font-size: 1.35em;
-  font-weight: 700;
+  font-family: var(--font-heading) !important;
+  font-size: 1em !important;
+  font-weight: 600 !important;
   background: var(--grad-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: block;
-  letter-spacing: -0.01em;
-  transform: rotate(-1.5deg);
-  margin-top: -0.1em;
+  display: inline;
+  letter-spacing: normal;
+  transform: none !important;
+  margin-top: 0;
 }
 
 .hero-subtitle {
-  font-size: 1.35rem;
-  color: var(--secondary);
-  font-weight: 700;
-  margin-bottom: 1.25rem;
+  font-family: var(--font-heading) !important;
+  font-size: 1.45rem;
+  color: var(--secondary-dark);
+  font-weight: 600 !important;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
 }
 
 .hero-description {
@@ -2022,13 +2077,8 @@ select.form-control:hover {
 
 
 /* ==========================================================================
-   Smooth Viewport Entrance Animations & Stagger Utility System
+   Word-by-Word, Line-by-Line & Section Scroll Reveal Motion System
    ========================================================================== */
-:root {
-  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Base Hidden States */
 .reveal,
 .animate-fade-up,
 .animate-fade-left,
@@ -2038,46 +2088,69 @@ select.form-control:hover {
 .animate-slide-up {
   opacity: 0;
   will-change: transform, opacity;
-  transition: transform 0.8s var(--ease-smooth), opacity 0.8s var(--ease-smooth);
+  transition: transform 0.85s var(--ease-smooth), opacity 0.85s var(--ease-smooth);
 }
 
-/* Specific Direction & Effect Transforms */
+/* Base Hidden States */
 .reveal,
 .animate-fade-up {
-  transform: translateY(35px);
+  transform: translateY(32px);
 }
 
 .animate-slide-up {
-  transform: translateY(55px);
+  transform: translateY(48px);
 }
 
 .animate-fade-left {
-  transform: translateX(-40px);
+  transform: translateX(-35px);
 }
 
 .animate-fade-right {
-  transform: translateX(40px);
+  transform: translateX(35px);
 }
 
 .animate-zoom-in,
 .animate-scale-in {
-  transform: scale(0.92);
+  transform: scale(0.94);
 }
 
 /* Visible Triggered States */
 .reveal.active,
 .reveal.is-visible,
 .animate-fade-up.active,
+.animate-fade-up.is-visible,
 .animate-fade-left.active,
+.animate-fade-left.is-visible,
 .animate-fade-right.active,
+.animate-fade-right.is-visible,
 .animate-zoom-in.active,
+.animate-zoom-in.is-visible,
 .animate-scale-in.active,
-.animate-slide-up.active {
+.animate-scale-in.is-visible,
+.animate-slide-up.active,
+.animate-slide-up.is-visible {
   opacity: 1;
   transform: translate(0, 0) scale(1);
 }
 
-/* Stagger Delays for Grid Cards & List Items */
+/* Word-by-Word & Line-by-Line Text Reveal Animation */
+.word-reveal {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(2px);
+  transition: opacity 0.75s var(--ease-smooth), transform 0.75s var(--ease-smooth), filter 0.75s var(--ease-smooth);
+  will-change: transform, opacity, filter;
+}
+
+.is-visible .word-reveal,
+.active .word-reveal {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Progressive Stagger Timing for Cards & Words */
 .stagger-1, .reveal-delay-1 { transition-delay: 0.1s; }
 .stagger-2, .reveal-delay-2 { transition-delay: 0.2s; }
 .stagger-3, .reveal-delay-3 { transition-delay: 0.3s; }
